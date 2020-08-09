@@ -14,16 +14,18 @@ class LaunchActivity : AppCompatActivity() {
         val handler = Handler();
         handler.postDelayed({
             // 添加Flutter单个页面
-//            val intent = AgentActivity
-//                .withNewEngine()
-//                ?.backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.opaque)
-//                ?.build(this@LaunchActivity)
-//            startActivity(intent)
+            val intent = AgentActivity
+                .withNewEngine()
+                ?.backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.opaque)
+                ?.build(this@LaunchActivity)
 
             // 添加Fragment
-            val intent = Intent(this@LaunchActivity,AgentActivity2::class.java)
+//            val intent = Intent(this@LaunchActivity,AgentActivity2::class.java)
+
             startActivity(intent)
             finish()
         },800)
     }
+
+
 }

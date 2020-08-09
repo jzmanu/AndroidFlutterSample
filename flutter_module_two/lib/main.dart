@@ -48,7 +48,7 @@ class _PageState extends State<PageWidget> {
         child:  Text("Flutter to Android"),
     );
   }
-
+  /// 跳转到原生Activity
   void _startMainActivity(){
     platform.invokeMethod('startMainActivity').then((value) {
       print("value:startMainActivity");
@@ -56,7 +56,6 @@ class _PageState extends State<PageWidget> {
       print(e.message);
     });
   }
-
 }
 
 

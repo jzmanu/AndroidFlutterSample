@@ -1,23 +1,26 @@
 package com.manu.androidfluttersample
 
+import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import io.flutter.embedding.android.FlutterActivity
+import io.flutter.embedding.android.FlutterFragment
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
-class AgentActivity : FlutterActivity() {
-    private val tag = AgentActivity::class.java.simpleName;
+class MFlutterFragment : FlutterFragment() {
     private val channel = "com.manu.startMainActivity"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d(tag,"configureFlutterEngine")
-
-        MethodChannel(flutterEngine.dartExecutor, channel)
-            .setMethodCallHandler { methodCall: MethodCall, result: MethodChannel.Result ->
+        MethodChannel(flutterEngine.dartExecutor,channel)
+            .setMethodCallHandler{methodCall: MethodCall, result: MethodChannel.Result ->
                 if ("startMainActivity" == methodCall.method) {
-                    MainActivity.startMainActivity(this)
+                    MainActivity.startMainActivity(context)
                     result.success("success")
                 } else {
                     result.notImplemented()
@@ -26,17 +29,12 @@ class AgentActivity : FlutterActivity() {
     }
 
     companion object{
-        /**
-         * 重新创建NewEngineIntentBuilder才能保证生效
-         */
-        fun withNewEngine(): MNewEngineIntentBuilder? {
-            return MNewEngineIntentBuilder(AgentActivity::class.java)
+        fun withNewEngine(): NewEngineFragmentBuilder? {
+            return MNewEngineIntentBuilder(MFlutterFragment::class.java)
         }
     }
 
-    /**
-     * 自定义NewEngineIntentBuilder
-     */
-    class MNewEngineIntentBuilder(activityClass: Class<out FlutterActivity?>?) :
-        NewEngineIntentBuilder(activityClass!!)
+    class MNewEngineIntentBuilder(activityClass: Class<out FlutterFragment?>?) :
+        NewEngineFragmentBuilder(activityClass!!)
+
 }

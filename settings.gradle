@@ -5,3 +5,5 @@ evaluate(new File(
   'flutter_module_two/.android/include_flutter.groovy'
 ))
 
+
+include ':flutter_module_two'

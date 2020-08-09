@@ -14,9 +14,11 @@
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
+            <!--开启第一帧加载-->
             <meta-data
                 android:name="io.flutter.app.android.SplashScreenUntilFirstFrame"
                 android:value="true" />
+            <!--第一帧加载图片-->
             <meta-data
                 android:name="io.flutter.embedding.android.SplashScreenDrawable"
                 android:resource="@drawable/ic_launcher_background" />
@@ -29,6 +31,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".AgentActivity" />
     </application>
 
 </manifest>
