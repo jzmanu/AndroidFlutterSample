@@ -6,6 +6,10 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
+/**
+ * @desc FlutterActivity
+ * @author jzman
+ */
 class AgentActivity : FlutterActivity() {
     private val tag = AgentActivity::class.java.simpleName;
     private val channel = "com.manu.startMainActivity"

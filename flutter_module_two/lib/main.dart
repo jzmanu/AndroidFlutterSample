@@ -13,18 +13,15 @@ class MyApp extends StatelessWidget {
             title: Text("Flutter Page"),
             centerTitle: true,
           ),
-          body: PageWidget()
-      ),
-      routes: <String,WidgetBuilder>{
-
-      },
+          body: PageWidget()),
+      theme: ThemeData.light(),
+      routes: <String, WidgetBuilder>{},
     );
   }
 }
 
 /// Stateful Widget
 class PageWidget extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() {
     return _PageState();
@@ -34,22 +31,29 @@ class PageWidget extends StatefulWidget {
 /// State
 class _PageState extends State<PageWidget> {
   MethodChannel platform;
+
   @override
   void initState() {
     super.initState();
     platform = new MethodChannel('com.manu.startMainActivity');
   }
+
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.fromLTRB(8, 8, 8, 0),
+      child: RaisedButton(
         onPressed: () {
           _startMainActivity();
         },
-        child:  Text("Flutter to Android"),
+        child: Text("Flutter to Android"),
+      ),
     );
   }
+
   /// 跳转到原生Activity
-  void _startMainActivity(){
+  void _startMainActivity() {
     platform.invokeMethod('startMainActivity').then((value) {
       print("value:startMainActivity");
     }).catchError((e) {
@@ -57,7 +61,3 @@ class _PageState extends State<PageWidget> {
     });
   }
 }
-
-
-
-
