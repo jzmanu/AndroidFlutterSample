@@ -15,7 +15,6 @@ class AgentFragmentActivity : FragmentActivity() {
         val fragmentManager = supportFragmentManager
         var flutterFragment = fragmentManager.findFragmentByTag(flutterFragmentTag)
         if (flutterFragment == null){
-//            flutterFragment = FlutterFragment.createDefault()
             flutterFragment = MFlutterFragment
                 .withNewEngine()
                 ?.build()

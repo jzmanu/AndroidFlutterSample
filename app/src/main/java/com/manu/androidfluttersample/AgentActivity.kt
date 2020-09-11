@@ -1,6 +1,8 @@
 package com.manu.androidfluttersample
 
+import android.app.Activity
 import android.util.Log
+import com.manu.androidfluttersample.MainActivity.Companion.startMainActivity
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -10,23 +12,19 @@ import io.flutter.plugin.common.MethodChannel
  * @desc FlutterActivity
  * @author jzman
  */
+val tag = AgentActivity::class.java.simpleName;
+
 class AgentActivity : FlutterActivity() {
-    private val tag = AgentActivity::class.java.simpleName;
+
     private val channel = "com.manu.startMainActivity"
+    private var platform: MethodChannel? = null;
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d(tag,"configureFlutterEngine")
-
-        MethodChannel(flutterEngine.dartExecutor, channel)
-            .setMethodCallHandler { methodCall: MethodCall, result: MethodChannel.Result ->
-                if ("startMainActivity" == methodCall.method) {
-                    MainActivity.startMainActivity(this)
-                    result.success("success")
-                } else {
-                    result.notImplemented()
-                }
-            }
+        platform = MethodChannel(flutterEngine.dartExecutor, channel)
+        // 设置来自Flutter的消息处理器
+        platform!!.setMethodCallHandler(StartMethodCallHandler(this@AgentActivity))
     }
 
     companion object{
@@ -43,4 +41,22 @@ class AgentActivity : FlutterActivity() {
      */
     class MNewEngineIntentBuilder(activityClass: Class<out FlutterActivity?>?) :
         NewEngineIntentBuilder(activityClass!!)
+
+    /**
+     * 实现MethodCallHandler
+     */
+    class StartMethodCallHandler(activity:Activity) : MethodChannel.MethodCallHandler{
+        private val context:Activity = activity
+        override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+            if ("startMainActivity" == call.method) {
+                Log.i(tag,"arguments:"+call.arguments)
+                startMainActivity(context)
+
+                // 向Flutter回调执行结果
+                result.success("success")
+            } else {
+                result.notImplemented()
+            }
+        }
+    }
 }

@@ -36,6 +36,13 @@ class _PageState extends State<PageWidget> {
   void initState() {
     super.initState();
     platform = new MethodChannel('com.manu.startMainActivity');
+
+    // 监听Android调用Flutter方法
+    platform.setMethodCallHandler(platformCallHandler);
+
+    setState(() {
+
+    });
   }
 
   @override
@@ -54,10 +61,24 @@ class _PageState extends State<PageWidget> {
 
   /// 跳转到原生Activity
   void _startMainActivity() {
-    platform.invokeMethod('startMainActivity').then((value) {
-      print("value:startMainActivity");
+    platform.invokeMethod('startMainActivity', 'flutter message').then((value) {
+      // 接收返回的数据
+      print("value:$value");
     }).catchError((e) {
       print(e.message);
     });
   }
+
+  void printMessage(){
+    print("printMessage");
+  }
+
+  Future<dynamic> platformCallHandler(MethodCall call) async{
+    switch(call.method){
+      case "getName":
+        return "name from flutter";
+        break;
+    }
+  }
 }
+

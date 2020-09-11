@@ -1,16 +1,15 @@
 package com.manu.androidfluttersample
 
-import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.android.FlutterFragment
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 
+/**
+ * @desc FlutterFragment
+ * @author jzman
+ */
 class MFlutterFragment : FlutterFragment() {
     private val channel = "com.manu.startMainActivity"
 
@@ -20,6 +19,7 @@ class MFlutterFragment : FlutterFragment() {
         MethodChannel(flutterEngine.dartExecutor,channel)
             .setMethodCallHandler{methodCall: MethodCall, result: MethodChannel.Result ->
                 if ("startMainActivity" == methodCall.method) {
+                    Log.i(tag,"arguments:"+methodCall.arguments)
                     MainActivity.startMainActivity(context)
                     result.success("success")
                 } else {
