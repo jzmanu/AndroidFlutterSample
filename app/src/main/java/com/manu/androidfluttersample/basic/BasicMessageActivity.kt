@@ -23,7 +23,7 @@ class BasicMessageActivity : FlutterActivity() {
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
-        Log.i(tag, "configureFlutterEngine:"+Thread.currentThread())
+        Log.i(tag, "configureFlutterEngine:" + Thread.currentThread())
         baseChannel = BasicMessageChannel<ByteBuffer>(
             flutterEngine.dartExecutor,
             channel,
@@ -31,16 +31,14 @@ class BasicMessageActivity : FlutterActivity() {
         )
         baseChannel!!.setMessageHandler { message, reply ->
             Log.i(tag, "configureFlutterEngine > message:$message")
-            Thread(Runnable {
-                /// 将图片资源转换成字节
-                val bitmap = BitmapFactory.decodeResource(resources, R.drawable.miao)
-                val byteArrayOutputStream = ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-                bitmap.recycle()
-                val bytes = byteArrayOutputStream.toByteArray()
-                byteArrayOutputStream.close()
-                reply.reply(ByteBuffer.wrap(bytes))
-            }).start()
+            /// 将图片资源转换成字节
+            val bitmap = BitmapFactory.decodeResource(resources, R.drawable.miao)
+            val byteArrayOutputStream = ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+            bitmap.recycle()
+            val bytes = byteArrayOutputStream.toByteArray()
+            byteArrayOutputStream.close()
+            reply.reply(ByteBuffer.wrap(bytes))
         }
     }
 

@@ -3,7 +3,9 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class BasicMessageWidget extends StatefulWidget {
+class BasicMessageChannelPage extends StatefulWidget {
+  static final routeName = "/BasicMessageChannelPage";
+
   @override
   State<StatefulWidget> createState() {
     return BasicMessageState();
@@ -11,9 +13,9 @@ class BasicMessageWidget extends StatefulWidget {
 }
 
 /// State
-class BasicMessageState extends State<BasicMessageWidget> {
+class BasicMessageState extends State<BasicMessageChannelPage> {
   BasicMessageChannel _basicMessageChannel;
-  Uint8List _imageBytes;
+  ByteData _imageBytes;
 
   @override
   void initState() {
@@ -30,13 +32,14 @@ class BasicMessageState extends State<BasicMessageWidget> {
         centerTitle: true,
       ),
       body: Container(
-        child: Image.memory(_imageBytes),
+        child: _imageBytes != null ? Image.memory(_imageBytes.buffer.asUint8List()) : Text("Image"),
       ),
     );
   }
 
   _getImage() async {
-    Uint8List imageByte = await _basicMessageChannel.send("image");
+    ByteData byteData = Uint8List(1).buffer.asByteData();
+    ByteData imageByte = await _basicMessageChannel.send(byteData);
     setState(() {
       _imageBytes = imageByte;
     });

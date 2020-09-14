@@ -7,6 +7,7 @@ import android.view.View
 import com.manu.androidfluttersample.MFlutterFragment.Companion.withNewEngine
 import com.manu.androidfluttersample.basic.BasicMessageActivity
 import io.flutter.embedding.android.FlutterActivityLaunchConfigs
+import io.flutter.plugin.common.BasicMessageChannel
 import kotlinx.android.synthetic.main.activity_launch.*
 
 /**
@@ -53,6 +54,7 @@ class LaunchActivity : AppCompatActivity(),View.OnClickListener {
     private fun toBasicMessageChannelPage(){
         val intent = BasicMessageActivity
             .withNewEngine()
+            ?.initialRoute("/BasicMessageChannelPage")
             ?.backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.transparent)
             ?.build(this@LaunchActivity)
         startActivity(intent)

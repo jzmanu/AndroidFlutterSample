@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_module_two/basic_message_channel.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
           ),
           body: PageWidget()),
       theme: ThemeData.light(),
-      routes: <String, WidgetBuilder>{},
+      routes: <String, WidgetBuilder>{
+        BasicMessageChannelPage.routeName: (BuildContext context) =>
+            BasicMessageChannelPage(),
+      },
     );
   }
 }
@@ -66,15 +70,11 @@ class _PageState extends State<PageWidget> {
   }
 
   /// Android调用Dart方法
-  Future<dynamic> platformCallHandler(MethodCall call) async{
-    switch(call.method){
+  Future<dynamic> platformCallHandler(MethodCall call) async {
+    switch (call.method) {
       case "getName":
         return "name from flutter";
         break;
     }
   }
 }
-
-
-
-
