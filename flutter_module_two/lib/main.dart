@@ -39,10 +39,6 @@ class _PageState extends State<PageWidget> {
 
     // 监听Android调用Flutter方法
     platform.setMethodCallHandler(platformCallHandler);
-
-    setState(() {
-
-    });
   }
 
   @override
@@ -69,10 +65,7 @@ class _PageState extends State<PageWidget> {
     });
   }
 
-  void printMessage(){
-    print("printMessage");
-  }
-
+  /// Android调用Dart方法
   Future<dynamic> platformCallHandler(MethodCall call) async{
     switch(call.method){
       case "getName":
@@ -81,4 +74,7 @@ class _PageState extends State<PageWidget> {
     }
   }
 }
+
+
+
 

@@ -15,7 +15,6 @@ import io.flutter.plugin.common.MethodChannel
 val tag = AgentActivity::class.java.simpleName;
 
 class AgentActivity : FlutterActivity() {
-
     private val channel = "com.manu.startMainActivity"
     private var platform: MethodChannel? = null;
 
@@ -23,7 +22,7 @@ class AgentActivity : FlutterActivity() {
         super.configureFlutterEngine(flutterEngine)
         Log.d(tag,"configureFlutterEngine")
         platform = MethodChannel(flutterEngine.dartExecutor, channel)
-        // 设置来自Flutter的消息处理器
+        // 设置方法处理器
         platform!!.setMethodCallHandler(StartMethodCallHandler(this@AgentActivity))
     }
 
@@ -51,7 +50,6 @@ class AgentActivity : FlutterActivity() {
             if ("startMainActivity" == call.method) {
                 Log.i(tag,"arguments:"+call.arguments)
                 startMainActivity(context)
-
                 // 向Flutter回调执行结果
                 result.success("success")
             } else {

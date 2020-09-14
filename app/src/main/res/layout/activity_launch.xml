@@ -27,4 +27,14 @@
         app:layout_constraintEnd_toEndOf="@+id/btnSingleFlutterPage"
         app:layout_constraintStart_toStartOf="@+id/btnSingleFlutterPage"
         app:layout_constraintTop_toBottomOf="@+id/btnSingleFlutterPage" />
+
+    <Button
+        android:id="@+id/btnBasicMessage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="BasicMessageChannel"
+        app:layout_constraintEnd_toEndOf="@+id/btnFlutterFragment"
+        app:layout_constraintStart_toStartOf="@+id/btnFlutterFragment"
+        app:layout_constraintTop_toBottomOf="@+id/btnFlutterFragment" />
 </androidx.constraintlayout.widget.ConstraintLayout>
