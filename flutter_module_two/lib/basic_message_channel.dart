@@ -15,13 +15,19 @@ class BasicMessageChannelPage extends StatefulWidget {
 /// State
 class BasicMessageState extends State<BasicMessageChannelPage> {
   BasicMessageChannel _basicMessageChannel;
-  ByteData _imageBytes;
+  MethodChannel _methodChannel;
+  String _stringMessage;
 
   @override
   void initState() {
     super.initState();
-    _basicMessageChannel = BasicMessageChannel("com.manu.image", BinaryCodec());
-    _getImage();
+    _basicMessageChannel = BasicMessageChannel<ByteData>("com.manu.image", BinaryCodec());
+    _methodChannel = MethodChannel("com.manu.startBasicMessageChannelActivity");
+
+    // 获取assets中的图片
+    rootBundle.load('images/miao.jpg').then((value) => {
+      _sendStringMessage(value)
+    });
   }
 
   @override
@@ -31,17 +37,32 @@ class BasicMessageState extends State<BasicMessageChannelPage> {
         title: Text("BasicMessageChannel"),
         centerTitle: true,
       ),
-      body: Container(
-        child: _imageBytes != null ? Image.memory(_imageBytes.buffer.asUint8List()) : Text("Image"),
-      ),
+      body: Column(
+        children: [
+          Container(
+            width: double.infinity,
+            margin: EdgeInsets.fromLTRB(8, 8, 8, 0),
+            child: RaisedButton(
+              onPressed: () {
+                _startBasicMessageChannelActivity();
+              },
+              child: Text("Flutter send image to Android"),
+            ),
+          ),
+
+          Center(
+            child: Text(_stringMessage == null ? "default" : _stringMessage),
+          )
+        ],
+      )
     );
   }
 
-  _getImage() async {
-    ByteData byteData = Uint8List(1).buffer.asByteData();
-    ByteData imageByte = await _basicMessageChannel.send(byteData);
-    setState(() {
-      _imageBytes = imageByte;
-    });
+  _startBasicMessageChannelActivity(){
+    _methodChannel.invokeMethod("startBasicMessageChannelActivity");
+  }
+
+  _sendStringMessage(ByteData byteData) async {
+    await _basicMessageChannel.send(byteData);
   }
 }

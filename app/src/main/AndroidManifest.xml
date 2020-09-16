@@ -9,16 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".basic.BasicMessageActivity"
+        <activity android:name=".event.EventChannelActivity"/>
+        <activity android:name=".basic.BasicMessageChannelActivity" />
+        <activity
+            android:name=".basic.AgentBasicActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:theme="@style/AppTheme.FlutterActivityTheme"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity android:name=".MainActivity2" />
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".test.MainActivity2" />
         <activity
-            android:name=".AgentFragmentActivity"
+            android:name=".fragment.AgentFragmentActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize" />
@@ -30,10 +31,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".method.MethodChannelActivity"
             android:theme="@style/AppTheme.MainActivity" />
         <activity
-            android:name=".AgentActivity"
+            android:name=".method.AgentActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
             android:theme="@style/AppTheme.FlutterActivityTheme"

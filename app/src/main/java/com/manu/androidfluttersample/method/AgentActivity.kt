@@ -1,8 +1,10 @@
-package com.manu.androidfluttersample
+package com.manu.androidfluttersample.method
 
 import android.app.Activity
+import android.os.Bundle
 import android.util.Log
-import com.manu.androidfluttersample.MainActivity.Companion.startMainActivity
+import com.manu.androidfluttersample.R
+import com.manu.androidfluttersample.method.MethodChannelActivity.Companion.startMainActivity
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -16,14 +18,18 @@ val tag = AgentActivity::class.java.simpleName;
 
 class AgentActivity : FlutterActivity() {
     private val channel = "com.manu.startMainActivity"
-    private var platform: MethodChannel? = null;
+    private var platform: MethodChannel? = null
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d(tag,"configureFlutterEngine")
         platform = MethodChannel(flutterEngine.dartExecutor, channel)
         // 设置方法处理器
-        platform!!.setMethodCallHandler(StartMethodCallHandler(this@AgentActivity))
+        platform!!.setMethodCallHandler(
+            StartMethodCallHandler(
+                this@AgentActivity
+            )
+        )
     }
 
     companion object{
@@ -31,7 +37,9 @@ class AgentActivity : FlutterActivity() {
          * 重新创建NewEngineIntentBuilder才能保证生效
          */
         fun withNewEngine(): MNewEngineIntentBuilder? {
-            return MNewEngineIntentBuilder(AgentActivity::class.java)
+            return MNewEngineIntentBuilder(
+                AgentActivity::class.java
+            )
         }
     }
 

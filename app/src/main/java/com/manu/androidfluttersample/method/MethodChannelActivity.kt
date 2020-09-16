@@ -1,10 +1,11 @@
-package com.manu.androidfluttersample
+package com.manu.androidfluttersample.method
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.manu.androidfluttersample.R
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -14,8 +15,8 @@ import kotlinx.android.synthetic.main.activity_main.*
  * @desc MainActivity
  * @author jzman
  */
-class MainActivity : FlutterActivity() {
-    private val tag = MainActivity::class.java.simpleName;
+class MethodChannelActivity : FlutterActivity() {
+    private val tag = MethodChannelActivity::class.java.simpleName;
     private val channel = "com.manu.startMainActivity"
     private var methodChannel: MethodChannel? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +38,7 @@ class MainActivity : FlutterActivity() {
         methodChannel?.invokeMethod("getName",null, object :MethodChannel.Result{
             override fun success(result: Any?) {
                 Log.i(tag,"success: "+result.toString())
-                Toast.makeText(this@MainActivity,result.toString(),Toast.LENGTH_LONG).show()
+                Toast.makeText(this@MethodChannelActivity,result.toString(),Toast.LENGTH_LONG).show()
             }
 
             override fun error(errorCode: String,errorMessage: String?,errorDetails: Any?) {
@@ -52,7 +53,7 @@ class MainActivity : FlutterActivity() {
 
     companion object{
         fun startMainActivity(context: Context) {
-            val intent = Intent(context, MainActivity::class.java)
+            val intent = Intent(context, MethodChannelActivity::class.java)
             context.startActivity(intent)
         }
     }

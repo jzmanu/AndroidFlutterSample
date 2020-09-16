@@ -1,7 +1,8 @@
-package com.manu.androidfluttersample
+package com.manu.androidfluttersample.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
+import com.manu.androidfluttersample.R
 
 /**
  * @desc 添加FlutterFragment到Activity
@@ -17,6 +18,7 @@ class AgentFragmentActivity : FragmentActivity() {
         if (flutterFragment == null){
             flutterFragment = MFlutterFragment
                 .withNewEngine()
+                ?.initialRoute("/EventChannelPage")
                 ?.build()
             if (flutterFragment != null) {
                 fragmentManager.beginTransaction()

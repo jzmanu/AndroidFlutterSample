@@ -1,14 +1,19 @@
 package com.manu.androidfluttersample
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.format.Formatter
+import android.util.Log
 import android.view.View
-import com.manu.androidfluttersample.MFlutterFragment.Companion.withNewEngine
-import com.manu.androidfluttersample.basic.BasicMessageActivity
+import androidx.appcompat.app.AppCompatActivity
+import com.manu.androidfluttersample.basic.AgentBasicActivity
+import com.manu.androidfluttersample.fragment.AgentFragmentActivity
+import com.manu.androidfluttersample.method.AgentActivity
 import io.flutter.embedding.android.FlutterActivityLaunchConfigs
-import io.flutter.plugin.common.BasicMessageChannel
 import kotlinx.android.synthetic.main.activity_launch.*
+import java.io.BufferedReader
+import java.io.FileReader
+import java.io.IOException
 
 /**
  * Android与Flutter通信机制
@@ -42,21 +47,25 @@ class LaunchActivity : AppCompatActivity(),View.OnClickListener {
     }
 
     /**
-     * 单个Flutter页面
+     * FlutterFragment
      */
     private fun toFlutterFragment(){
-        startActivity(Intent(this@LaunchActivity,AgentFragmentActivity::class.java))
+        startActivity(Intent(this@LaunchActivity,
+            AgentFragmentActivity::class.java))
     }
 
     /**
-     * 单个Flutter页面
+     * BasicMessageChannelPage
      */
     private fun toBasicMessageChannelPage(){
-        val intent = BasicMessageActivity
+        val intent = AgentBasicActivity
             .withNewEngine()
             ?.initialRoute("/BasicMessageChannelPage")
             ?.backgroundMode(FlutterActivityLaunchConfigs.BackgroundMode.transparent)
             ?.build(this@LaunchActivity)
         startActivity(intent)
     }
+
+
+
 }

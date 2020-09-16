@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_module_two/basic_message_channel.dart';
 
+import 'event_channel.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         BasicMessageChannelPage.routeName: (BuildContext context) =>
             BasicMessageChannelPage(),
+        EventChannelPage.routeName:(BuildContext context) =>
+            EventChannelPage(),
       },
     );
   }

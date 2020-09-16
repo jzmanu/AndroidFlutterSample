@@ -1,6 +1,8 @@
-package com.manu.androidfluttersample
+package com.manu.androidfluttersample.fragment
 
 import android.util.Log
+import com.manu.androidfluttersample.event.EventChannelActivity
+import com.manu.androidfluttersample.method.MethodChannelActivity
 import io.flutter.embedding.android.FlutterFragment
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodCall
@@ -11,16 +13,16 @@ import io.flutter.plugin.common.MethodChannel
  * @author jzman
  */
 class MFlutterFragment : FlutterFragment() {
-    private val channel = "com.manu.startMainActivity"
+    private val channel = "com.manu.startEventChannelActivity"
 
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         Log.d(tag,"configureFlutterEngine")
         MethodChannel(flutterEngine.dartExecutor,channel)
             .setMethodCallHandler{methodCall: MethodCall, result: MethodChannel.Result ->
-                if ("startMainActivity" == methodCall.method) {
+                if ("startEventChannelActivity" == methodCall.method) {
                     Log.i(tag,"arguments:"+methodCall.arguments)
-                    MainActivity.startMainActivity(context)
+                    EventChannelActivity.startEventChannelActivity(context)
                     result.success("success")
                 } else {
                     result.notImplemented()
@@ -30,7 +32,9 @@ class MFlutterFragment : FlutterFragment() {
 
     companion object{
         fun withNewEngine(): NewEngineFragmentBuilder? {
-            return MNewEngineIntentBuilder(MFlutterFragment::class.java)
+            return MNewEngineIntentBuilder(
+                MFlutterFragment::class.java
+            )
         }
     }
 
