@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".event.EventChannelActivity"/>
         <activity android:name=".basic.BasicMessageChannelActivity" />
         <activity
             android:name=".basic.AgentBasicActivity"

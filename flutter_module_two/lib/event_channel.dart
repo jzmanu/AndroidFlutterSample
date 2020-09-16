@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -15,41 +16,42 @@ class EventChannelPage extends StatefulWidget {
 /// State
 class EventState extends State<EventChannelPage> {
   EventChannel _eventChannel;
-  MethodChannel _methodChannel;
   String _stringMessage;
+  StreamSubscription _streamSubscription;
 
   @override
   void initState() {
     super.initState();
     _eventChannel = EventChannel("com.manu.event");
-    _methodChannel = MethodChannel("com.manu.startEventChannelActivity");
+    // 监听Event事件
+    _streamSubscription =
+        _eventChannel.receiveBroadcastStream().listen((event) {
+      setState(() {
+        _stringMessage = event;
+      });
+    }, onError: (error) {
+      print("event error$error");
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    if (_streamSubscription != null) {
+      _streamSubscription.cancel();
+      _streamSubscription = null;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("BasicMessageChannel"),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            margin: EdgeInsets.fromLTRB(8, 8, 8, 0),
-            child: RaisedButton(
-              onPressed: () {
-                _startEventChannelActivity();
-              },
-              child: Text("Flutter to Android"),
-            ),
-          ),
-        ],
-      )
-    );
-  }
-
-  _startEventChannelActivity(){
-    _methodChannel.invokeMethod("startEventChannelActivity");
+        appBar: AppBar(
+          title: Text("EventChannel"),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: Text(_stringMessage == null ? "default" : _stringMessage),
+        ));
   }
 }
